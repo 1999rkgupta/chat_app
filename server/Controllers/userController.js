@@ -13,16 +13,20 @@ const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
     let user = await userModel.findOne({ email });
     if (user)
-      return res.status(400).json("User with given email already exist...");
+      return res
+        .status(400)
+        .json({ error: "User with given email already exist..." });
 
     if (!name || !email || !password)
-      return res.status(400).json("All fields are required...");
+      return res.status(400).json({ error: "All fields are required..." });
 
     if (!validator.isEmail(email))
-      return res.status(400).json("Email must be a valid email...");
+      return res.status(400).json({ error: "Email must be a valid email..." });
 
     if (!validator.isStrongPassword(password))
-      return res.status(400).json("Password must be a strong password...");
+      return res
+        .status(400)
+        .json({ error: "Password must be a strong password..." });
 
     // Get the latest userId from the database
     const latestUser = await userModel.findOne().sort({ userId: -1 });
@@ -41,8 +45,35 @@ const registerUser = async (req, res) => {
       .status(200)
       .json({ id: user.id, userId: user.userId, name, email, token });
   } catch (error) {
-    res.status(500).json(error);
+    res.status(500).json({ error });
   }
 };
 
-module.exports = { registerUser };
+const loginUser = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    let user = await userModel.findOne({ email });
+    if (!user)
+      return res.status(400).json({ error: "Invalid email or password" });
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword)
+      return res.status(400).json({ error: "Invalid email or password" });
+
+    const token = createToken(user.id);
+
+    res
+      .status(200)
+      .json({
+        id: user.id,
+        userId: user.userId,
+        name: user.name,
+        email,
+        token,
+      });
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+};
+
+module.exports = { registerUser, loginUser };
