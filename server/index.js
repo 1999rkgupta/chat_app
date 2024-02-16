@@ -14,9 +14,11 @@ app.use(express.json());
 //     useUnifiedTopology: true,
 //   })
 
-app.use(cors({origin:['https://chat-app-frontend-ashen.vercel.app'],
-              methods:["POST", "GET"],
-              credentials:true}));
+app.use(cors({
+    origin: ['https://*.vercel.app/'], // Allow all subdomains and paths under *.vercel.app
+    methods: ["POST", "GET"],
+    credentials: true,
+}));
 app.use("/api/v1", userRoute);
 app.use("/api/v1/chats", chatRoute);
 app.use("/api/v1/messages", messageRoute);
