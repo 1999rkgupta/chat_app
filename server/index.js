@@ -9,7 +9,11 @@ const app = express();
 require("dotenv").config();
 
 app.use(express.json());
-app.use(cors());
+mongoose.connect('mongodb+srv://1999rkgupta:alla0210379@cluster0.3mwizsk.mongodb.net/chatApp?retryWrites=true&w=majority')
+
+app.use(cors({origin:['https://chat-app-1whq.vercel.app'],
+              methods:["POST", "GET"],
+              credentials:true}));
 app.use("/api/v1", userRoute);
 app.use("/api/v1/chats", chatRoute);
 app.use("/api/v1/messages", messageRoute);
