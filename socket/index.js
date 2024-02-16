@@ -1,7 +1,9 @@
 const { Server } = require("socket.io");
 
-const io = new Server({ cors: "https://chat-app-frontend-ashen.vercel.app" });
-
+const io = new Server({ cors: {
+  origin: 'https://chat-app-frontend-ashen.vercel.app/', // Include trailing slash
+  methods: ['GET', 'POST'] // Include needed methods (adjust as needed)
+}});
 let onlineUsers = [];
 
 io.on("connection", socket => {
