@@ -15,10 +15,12 @@ app.use(express.json());
 //   })
 
 app.use(cors({
-    origin: ['https://*.vercel.app/'], // Allow all subdomains and paths under *.vercel.app
-    methods: ["POST", "GET"],
-    credentials: true,
+    origin: ['https://chat-app-frontend-ashen.vercel.app/'], // Exact match
+    methods: ["GET", "POST"], // Adjust methods as needed
+    credentials: true, // If sending/receiving cookies or auth tokens
 }));
+
+
 app.use("/api/v1", userRoute);
 app.use("/api/v1/chats", chatRoute);
 app.use("/api/v1/messages", messageRoute);
