@@ -9,7 +9,10 @@ const app = express();
 require("dotenv").config();
 
 app.use(express.json());
-mongoose.connect('mongodb+srv://1999rkgupta:alla0210379@cluster0.3mwizsk.mongodb.net/chatApp?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://1999rkgupta:alla0210379@cluster0.3mwizsk.mongodb.net/chatApp?retryWrites=true&w=majority',{
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
 
 app.use(cors({origin:['https://chat-app-frontend-ashen.vercel.app'],
               methods:["POST", "GET"],
@@ -29,11 +32,11 @@ app.listen(port, (req, res) => {
   console.log(`server running on port... : ${port}`);
 });
 
-mongoose
-  .connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+// mongoose
+//   .connect(uri, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   })
   .then(() => {
     console.log("MongoDB database connection established successfully");
   })
