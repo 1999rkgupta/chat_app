@@ -4,7 +4,7 @@ const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
 const createToken = id => {
-  const jwtkey = process.env.JWT_SECRET_KEY;
+  const jwtkey = supersecretkey987654;
   return jwt.sign({ id }, jwtkey, { expiresIn: "3d" });
 };
 
