@@ -21,7 +21,7 @@ app.use(cors({
 }));
 
 
-app.use("api/v1", userRoute);
+app.use("/api/v1", userRoute);
 app.use("/api/v1/chats", chatRoute);
 app.use("/api/v1/messages", messageRoute);
 
