@@ -11,7 +11,7 @@ require("dotenv").config();
 app.use(express.json());
 mongoose.connect('mongodb+srv://1999rkgupta:alla0210379@cluster0.3mwizsk.mongodb.net/chatApp?retryWrites=true&w=majority')
 
-app.use(cors({origin:['https://chat-app-frontend-ashen.vercel.app/'],
+app.use(cors({origin:['https://chat-app-frontend-ashen.vercel.app'],
               methods:["POST", "GET"],
               credentials:true}));
 app.use("/api/v1", userRoute);
