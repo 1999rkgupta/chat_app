@@ -3,9 +3,9 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
-const createToken = _id => {
+const createToken = id => {
   const jwtkey = process.env.JWT_SECRET_KEY;
-  return jwt.sign({ _id }, jwtkey, { expiresIn: "3d" });
+  return jwt.sign({ id }, jwtkey, { expiresIn: "3d" });
 };
 
 const registerUser = async (req, res) => {
@@ -45,6 +45,7 @@ const registerUser = async (req, res) => {
       .status(200)
       .json({ id: user.id, userId: user.userId, name, email, token });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };
@@ -70,6 +71,7 @@ const loginUser = async (req, res) => {
       token,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };
@@ -86,6 +88,7 @@ const fetchUser = async (req, res) => {
 
     res.status(200).json(user);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };
@@ -98,6 +101,7 @@ const fetchAllUser = async (req, res) => {
 
     res.status(200).json(users);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error });
   }
 };
