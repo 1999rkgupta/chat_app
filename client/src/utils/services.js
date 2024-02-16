@@ -1,4 +1,4 @@
-export const baseUrl = "http://192.168.1.63:5000/api/v1/";
+export const baseUrl = "chat-app-api-theta.vercel.app/api/v1/";
 
 export const postRequest = async (url, body) => {
   const response = await fetch(url, {
